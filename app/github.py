@@ -13,14 +13,25 @@ def get_pr_files(owner, repo, pr_number):
     res.raise_for_status()
     return res.json()
 
-def post_review_comment(owner, repo, pr_number, comments):
+def post_review_comment(owner, repo, pr_number, path, line_number, body):
     url = f"https://api.github.com/repos/{owner}/{repo}/pulls/{pr_number}/reviews"
     payload = {
         "event": "COMMENT",
-        "comments": comments
+        "comments": [
+            {
+                "path": path,
+                "body": body,
+                "position": line_number  # GitHub API uses `position` in diff, not actual line
+            }
+        ]
     }
-    res = requests.post(url, headers=HEADERS, json=payload)
+    headers = {
+        "Authorization": f"token {GITHUB_TOKEN}",
+        "Accept": "application/vnd.github.v3+json"
+    }
+    res = requests.post(url, headers=headers, json=payload)
     res.raise_for_status()
+    return res.json()
 
 def get_pr_diff(owner, repo, pr_number):
     url = f"https://api.github.com/repos/{owner}/{repo}/pulls/{pr_number}"
