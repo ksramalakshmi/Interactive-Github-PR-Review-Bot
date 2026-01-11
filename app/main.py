@@ -2,7 +2,7 @@ from fastapi import FastAPI, Request, Header, HTTPException
 import hmac
 import hashlib
 import os
-from app.reviewer import handle_pull_request
+from app.graph import app_graph
 
 from dotenv import load_dotenv
 load_dotenv()
@@ -31,6 +31,19 @@ async def github_webhook(
     if x_github_event == "pull_request":
         action = payload.get("action")
         if action in {"opened", "synchronize"}:
-            handle_pull_request(payload)
+            owner = payload["repository"]["owner"]["login"]
+            repo = payload["repository"]["name"]
+            pr_number = payload["pull_request"]["number"]
+            
+            initial_state = {
+                "owner": owner,
+                "repo": repo,
+                "pr_number": pr_number,
+                "diff_text": None,
+                "added_lines": [],
+                "findings": [],
+                "deduped_findings": []
+            }
+            app_graph.invoke(initial_state)
 
     return {"status": "ok"}

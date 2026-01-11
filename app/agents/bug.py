@@ -1,4 +1,3 @@
-# app/agents/bug.py
 from app.agents.base import ReviewAgent
 from app.llm import call_llm
 

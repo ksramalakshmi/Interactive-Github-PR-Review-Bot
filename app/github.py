@@ -21,7 +21,7 @@ def post_review_comment(owner, repo, pr_number, path, line_number, body):
             {
                 "path": path,
                 "body": body,
-                "position": line_number  # GitHub API uses `position` in diff, not actual line
+                "position": line_number
             }
         ]
     }

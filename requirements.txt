@@ -4,3 +4,7 @@ requests
 python-dotenv
 unidiff
 openai
+langgraph
+langchain-openai
+langchain-core
+supabase

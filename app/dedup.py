@@ -22,7 +22,6 @@ def deduplicate_findings(findings):
     """
     grouped = defaultdict(list)
 
-    # Group by file + line
     for f in findings:
         key = (f["file"], f["line"])
         grouped[key].append(f)
