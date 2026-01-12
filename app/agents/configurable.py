@@ -52,7 +52,7 @@ class ConfigurableAgent(ReviewAgent):
             "severity": finding_severity,
             "code_snippet": code,
             "finding_text": finding_text,
-            "outcome": "posted", # Default, updated below
+            "outcome": "posted",
             "score": 0,
             "relevance": 0,
             "accuracy": 0,
@@ -67,7 +67,7 @@ class ConfigurableAgent(ReviewAgent):
             log_finding_outcome(log_entry)
             return None
 
-        # 3. Secondary Evaluation (if configured)
+        # 3. Secondary Evaluation
         if self.evaluation_prompt:
             try:
                 finding_context = f"File: {file}\nLine: {line}\nCode: {code}\n\nProposed Finding:\n{result.get('comment')}"
@@ -89,11 +89,10 @@ class ConfigurableAgent(ReviewAgent):
                         return None
                     
                     result["evaluation_score"] = score
-                    result["evaluation_metrics"] = eval_result # Attach full metrics
+                    result["evaluation_metrics"] = eval_result
                     
             except Exception as e:
                 print(f"[{self.name}] Evaluation failed: {e}. Proceeding with original finding.")
 
-        # If we reached here, it's posted
         log_finding_outcome(log_entry)
         return result

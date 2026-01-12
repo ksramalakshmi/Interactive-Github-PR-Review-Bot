@@ -28,7 +28,6 @@ async def github_webhook(
 
     payload = await request.json()
     
-    # LOG DEBUG: Print every event type received
     print(f"DEBUG: Received Webhook Event: {x_github_event}")
 
     if x_github_event == "pull_request":

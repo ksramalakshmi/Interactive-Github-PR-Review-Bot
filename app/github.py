@@ -45,7 +45,6 @@ def get_pr_diff(owner, repo, pr_number):
     return res.text
 
 def reply_to_comment(owner, repo, pr_number, comment_id, body):
-    # POST /repos/{owner}/{repo}/pulls/{pull_number}/comments/{comment_id}/replies
     url = f"https://api.github.com/repos/{owner}/{repo}/pulls/{pr_number}/comments/{comment_id}/replies"
     
     headers = {
