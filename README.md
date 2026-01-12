@@ -14,7 +14,7 @@ A powerful, intelligent, and interactive bot that automatically reviews GitHub P
 
 The system is built on an event-driven architecture using **FastAPI**, **LangGraph**, and **Supabase**.
 
-![System Architecture](system_design.png)
+![System Architecture](system_design.jpeg)
 
 ## Setup Instructions
 
@@ -171,7 +171,7 @@ Analyzes how different agents review the **same PR**.
 ### Review History Explorer
 Detailed audit trail of all reviews.
 
-![Review History Explorer](review_history.png)
+![Review History Explorer](review_logs.png)
 
 ---
 
