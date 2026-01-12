@@ -49,6 +49,8 @@ The system is built on an event-driven architecture using **FastAPI**, **LangGra
 2.  Run the contents of `supa_schema.sql` to create the necessary tables (`agents`, `review_logs`, `processed_comments`) and default agents.
 3.  Note down your `SUPABASE_URL` and `SUPABASE_SERVICE_ROLE_KEY`.
 
+![Supabase Schema](supa_schema.png)
+
 ### 4. Configuration
 
 Create a `.env` file in the root directory:
