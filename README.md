@@ -14,6 +14,8 @@ A powerful, intelligent, and interactive bot that automatically reviews GitHub P
 
 The system is built on an event-driven architecture using **FastAPI**, **LangGraph**, and **Supabase**.
 
+![System Architecture](system_design.png)
+
 ## Setup Instructions
 
 ### 1. Prerequisites
@@ -148,25 +150,35 @@ These dashboards help answer critical questions:
 ### Review Helpfulness Trends
 Tracks overall agent performance over time.
 
+![Review Helpfulness Trends](agent_score.png)
+
 ---
 
 ### Per-Agent Evaluation Breakdown
 Compares agents across evaluation dimensions.
+
+![Per-Agent Evaluation Breakdown](agent_effectiveness.png)
 
 ---
 
 ### Same PR, Multiple Agents Analysis
 Analyzes how different agents review the **same PR**.
 
+![Same PR, Multiple Agents Analysis](evaluation_agents.png)
+
 ---
 
 ### Review History Explorer
 Detailed audit trail of all reviews.
 
+![Review History Explorer](review_history.png)
+
 ---
 
 ### Agent Performance Leaderboard
 Ranks agents by effectiveness.
+
+![Agent Performance Leaderboard](agent_leaderboard.png)
 
 ## Setting up Metabase
 
