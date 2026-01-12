@@ -8,8 +8,6 @@ A powerful, intelligent, and interactive bot that automatically reviews GitHub P
 - **Conversational**: Reply to the bot's comments (e.g., "Why is this a bug?") and it will answer contextually.
 - **Metric Tracking**: Automatically tracks the helpfulness, accuracy, and relevance of every finding.
 
----
-
 ## System Architecture
 
 The system is built on an event-driven architecture using **FastAPI**, **LangGraph**, and **Supabase**.
@@ -63,8 +61,6 @@ SUPABASE_URL="https://your-project.supabase.co"
 SUPABASE_SERVICE_ROLE_KEY="your_service_role_key"
 ```
 
----
-
 ## GitHub Webhook Configuration
 
 ### 1. Create a GitHub Webhook
@@ -78,8 +74,6 @@ SUPABASE_SERVICE_ROLE_KEY="your_service_role_key"
 Enable:
 - [x] **Pull requests** (Triggers reviews)
 - [x] **Pull request review comments** (Triggers conversational replies)
-
----
 
 ## Running the Bot
 
@@ -97,8 +91,6 @@ ngrok http 8000
 ```
 *Update your GitHub Webhook URL with the new ngrok address everytime you end the ngrok tunnel.*
 
----
-
 ## Agent Management
 
 You can manage agents dynamically without restarting the server by editing the `agents` table in Supabase.
@@ -107,8 +99,6 @@ You can manage agents dynamically without restarting the server by editing the `
 - **Severity**: Change validation strictness (`low`, `medium`, `high`).
 - **Context**: Update `file_patterns` (e.g., `["*.py"]`) or `allowed_repos` to restrict where agents run.
 - **Prompts**: Tweak `system_prompt` or `evaluation_prompt` to refine behavior.
-
----
 
 ## Features
 
@@ -137,6 +127,8 @@ Every finding is scored (0-10) on:
 
 These logs are saved to the `review_logs` table in Supabase, allowing you to monitor agent quality over time.
 
+## Metabase Dashboards
+
 **Review-agent analytics layer** is powered by **Metabase** to measure and improve the quality of AI-generated PR reviews over time. It is connected to the Supabase project and the dashboards are updated in real-time.
 
 These dashboards help answer critical questions:
@@ -145,42 +137,7 @@ These dashboards help answer critical questions:
 - Do multiple agents agree on the same PR?
 - Which agents should be tuned, limited, or disabled?
 
-## What the Dashboards Show
-
-### Review Helpfulness Trends
-Tracks overall agent performance over time.
-
-![Review Helpfulness Trends](agent_score.png)
-
----
-
-### Per-Agent Evaluation Breakdown
-Compares agents across evaluation dimensions.
-
-![Per-Agent Evaluation Breakdown](agent_effectiveness.png)
-
----
-
-### Same PR, Multiple Agents Analysis
-Analyzes how different agents review the **same PR**.
-
-![Same PR, Multiple Agents Analysis](evaluation_agents.png)
-
----
-
-### Review History Explorer
-Detailed audit trail of all reviews.
-
-![Review History Explorer](review_logs.png)
-
----
-
-### Agent Performance Leaderboard
-Ranks agents by effectiveness.
-
-![Agent Performance Leaderboard](agent_leaderboard.png)
-
-## Setting up Metabase
+### Setting up Metabase
 
 Run the following docker command to pull the metabase image
 
@@ -189,3 +146,28 @@ docker run -d -p 3000:3000 --name metabase metabase/metabase
 ```
 
 The app is running on port `3000` locally in your system. Navigate to https://localhost:3000 to access the Metabase UI and connect to Supabase with its internal Postgres configurations.
+
+### Review Helpfulness Trends
+Tracks overall agent performance over time.
+
+![Review Helpfulness Trends](agent_score.png)
+
+### Per-Agent Evaluation Breakdown
+Compares agents across evaluation dimensions.
+
+![Per-Agent Evaluation Breakdown](agent_effectiveness.png)
+
+### Same PR, Multiple Agents Analysis
+Analyzes how different agents review the **same PR**.
+
+![Same PR, Multiple Agents Analysis](evaluation_agents.png)
+
+### Review History Explorer
+Detailed audit trail of all reviews.
+
+![Review History Explorer](review_logs.png)
+
+### Agent Performance Leaderboard
+Ranks agents by effectiveness.
+
+![Agent Performance Leaderboard](agent_leaderboard.png)
