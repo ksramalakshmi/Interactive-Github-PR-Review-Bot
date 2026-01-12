@@ -53,7 +53,9 @@ def analyze_node(state: AgentState):
         
         for agent in agents:
             try:
-                result = agent.analyze(file=file, line=line, code=code)
+                # Pass PR context for logging
+                pr_details = {"repo": f"{state['owner']}/{state['repo']}", "pr_number": state["pr_number"]}
+                result = agent.analyze(file=file, line=line, code=code, pr_details=pr_details)
             except Exception as e:
                 result = {"comment": f"Agent error: {e}", "severity": "low"}
             

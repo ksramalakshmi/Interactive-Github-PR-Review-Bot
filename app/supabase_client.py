@@ -50,3 +50,22 @@ def get_active_agents(owner: str = None, repo: str = None):
     except Exception as e:
         print(f"Error fetching agents from Supabase: {e}")
         return None
+
+def log_finding_outcome(finding_data: dict):
+    """
+    Logs the outcome of an agent's finding to Supabase.
+    finding_data should contain:
+    - agent_name, repo_name, pr_number, file_path, line_number
+    - severity, outcome
+    - score, relevance, accuracy, actionability, clarity (metrics)
+    - code_snippet, finding_text (content)
+    """
+    try:
+        # Check if client is initialized
+        if not supabase:
+            return
+            
+        supabase.table("review_logs").insert(finding_data).execute()
+        print(f"Logged finding for {finding_data.get('agent_name')} (Outcome: {finding_data.get('outcome')})")
+    except Exception as e:
+        print(f"Error logging finding to Supabase: {e}")
