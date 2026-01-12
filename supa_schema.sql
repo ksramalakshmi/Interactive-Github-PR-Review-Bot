@@ -38,14 +38,23 @@ create table review_logs (
     created_at timestamp with time zone default timezone('utc'::text, now()) not null
 );
 
+-- Create processed_comments table for idempotency
+create table processed_comments (
+    comment_id bigint primary key, -- The ID of the user comment we replied to
+    replied_at timestamp with time zone default timezone('utc'::text, now()) not null
+);
+
 -- Enable Row Level Security (RLS)
 alter table agents enable row level security;
 alter table review_logs enable row level security;
+alter table processed_comments enable row level security;
 
 -- Create policies
 create policy "Enable read access for all users" on agents for select using (true);
 create policy "Enable read access for all users" on review_logs for select using (true);
 create policy "Enable insert access for all users" on review_logs for insert with check (true);
+create policy "Enable read access for all users" on processed_comments for select using (true);
+create policy "Enable insert access for all users" on processed_comments for insert with check (true);
 
 -- Insert default agents with DETAILED Evaluation Prompts
 insert into agents (name, system_prompt, severity_threshold, enabled, file_patterns, evaluation_prompt, allowed_repos, excluded_repos) values

@@ -41,4 +41,27 @@ def get_pr_diff(owner, repo, pr_number):
     }
     res = requests.get(url, headers=headers)
     res.raise_for_status()
+    res.raise_for_status()
     return res.text
+
+def reply_to_comment(owner, repo, pr_number, comment_id, body):
+    # POST /repos/{owner}/{repo}/pulls/{pull_number}/comments/{comment_id}/replies
+    url = f"https://api.github.com/repos/{owner}/{repo}/pulls/{pr_number}/comments/{comment_id}/replies"
+    
+    headers = {
+         "Authorization": f"token {GITHUB_TOKEN}",
+         "Accept": "application/vnd.github.v3+json"
+    }
+    
+    payload = {"body": body}
+    
+    res = requests.post(url, headers=headers, json=payload)
+    res.raise_for_status()
+    res.raise_for_status()
+    return res.json()
+
+def get_current_user():
+    url = "https://api.github.com/user"
+    res = requests.get(url, headers=HEADERS)
+    res.raise_for_status()
+    return res.json()

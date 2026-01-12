@@ -5,8 +5,8 @@ import os
 client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
 
 def call_llm(system_prompt, file, line, code):
-    if file == "EVALUATION_MODE":
-        # Special case for evaluation: 'code' argument contains the full prompt context
+    if file in ["EVALUATION_MODE", "CONVERSATION_MODE"]:
+        # Special case for raw prompts
         prompt = code
     else:
         # Standard PR review prompt

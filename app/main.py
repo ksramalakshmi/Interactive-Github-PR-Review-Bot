@@ -27,6 +27,9 @@ async def github_webhook(
     verify_signature(body, x_hub_signature_256)
 
     payload = await request.json()
+    
+    # LOG DEBUG: Print every event type received
+    print(f"DEBUG: Received Webhook Event: {x_github_event}")
 
     if x_github_event == "pull_request":
         action = payload.get("action")
@@ -45,5 +48,9 @@ async def github_webhook(
                 "deduped_findings": []
             }
             app_graph.invoke(initial_state)
+
+    elif x_github_event == "pull_request_review_comment":
+        from app.conversation import handle_conversation
+        handle_conversation(payload)
 
     return {"status": "ok"}
